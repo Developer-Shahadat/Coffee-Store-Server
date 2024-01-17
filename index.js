@@ -22,6 +22,8 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const coffeeCollection = client.db("coffeeDB").collection("coffee");
+    // Users Data
+    const userCollection = client.db("coffeeDB").collection('users')
 
     // server a data load
     // Read DB
@@ -76,6 +78,19 @@ async function run() {
       const result = await coffeeCollection.deleteOne(query);
       res.send(result);
     });
+
+    
+
+    app.post('/user', async (req,res) => {
+      const newUser = req.body;
+      console.log(newUser);
+      const result = await userCollection.insertOne(newUser);
+      res.send(result);
+    })
+
+
+
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
