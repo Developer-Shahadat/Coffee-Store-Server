@@ -79,9 +79,16 @@ async function run() {
       res.send(result);
     });
 
-    
+    // Users Related
 
-    app.post('/user', async (req,res) => {
+    app.get('/users',async(req,res) => {
+      const cursor = userCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+
+    })
+// Backend a user data pathano 
+    app.post('/users', async (req,res) => {
       const newUser = req.body;
       console.log(newUser);
       const result = await userCollection.insertOne(newUser);
